@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($phone)) {
         $errors['phone'] = "Le numéro de téléphone est obligatoire.";
-    } elseif (strlen($phone) < 12) {
+    } elseif (strlen($phone) < 13) {
         $errors['phone'] = "Le numéro de téléphone n'est pas valide";
     }
 
@@ -55,14 +55,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($zip)) {
         $errors['zip_code'] = "Le code postal est obligatoire.";
-    } elseif (strlen($zip) < 4) {
+    } elseif (strlen($zip) < 5) {
         $errors['zip_code'] = "Le code postal est obligatoire.";
     }
 
     if (!empty($errors)) {
-        var_dump($errors);
+        $sql = "INSERT INTO users (firstname, lastname, pseudo, email, password, street, number_street, city, zip_code, phone_number, profil) VALUES (:firstname, :lastname, :pseudo, :email, :password, :street, :number_street, :city, :zip_code, :phone_number, :profil)";
+        $stmt = $pdo->prepare($sql);
+        $result = $stmt->execute([
+            ':firstname' => $firstname,
+            ':lastname' => $lastname,
+            ':email' => $email,
+            ':pseudo' => $username,
+            ':password' => $password,
+            ':street' => $street,
+            ':city' => $city,
+            ':number_street' => $numberStreet,
+            ':zip_code' => $zip,
+            ':phone_number' => $phone,
+            ':profil' => $profil
+        ]);
+        if ($result) {
+            header('Location: index.php?action=login');
+            exit;
+        } else {
+
+        }
     } else {
-        echo "Succès : données valides.";
+
     }
 
 
@@ -89,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="username">Pseudo</label>
         <input type="text" name="username" id="username"><br>
 
-        <label for="email">Pseudo</label>
+        <label for="email">Email</label>
         <input type="email" name="email" id="email"><br>
 
         <label for="password">Mot de passe</label>
