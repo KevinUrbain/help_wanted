@@ -330,6 +330,11 @@
         overflow: hidden;
       }
 
+      .links {
+        text-decoration: none;
+        color: inherit;
+      }
+
       .card::before {
         content: "";
         position: absolute;
@@ -525,7 +530,7 @@
           </div>
 
           <!-- Profile menu (visible when logged in) -->
-          <div class="profile-menu">
+          <div class="profile-menu logged-in-only">
             <img
               src="https://i.pravatar.cc/150?img=68"
               alt="Profile"
@@ -576,7 +581,9 @@
             <span class="card-type demande">Demande</span>
             <span class="card-time">Il y a 2h</span>
           </div>
-          <h3>Besoin d'aide pour déménager un canapé</h3>
+          <h3>
+            <a href="" class="links">Besoin d'aide pour déménager un canapé</a>
+          </h3>
           <p>
             Bonjour ! Je cherche quelqu'un avec un van pour m'aider à déplacer
             un canapé 3 places du rez-de-chaussée. Distance : 5 km environ.
