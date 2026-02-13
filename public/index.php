@@ -3,7 +3,7 @@ session_start();
 require_once '../config/config.php';
 require_once '../config/database.php';
 
-$action = $_GET['action'] ?? 'index';
+$action = $_GET['action'] ?? 'home';
 
 switch ($action) {
     case 'home':
