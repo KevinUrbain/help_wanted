@@ -14,7 +14,7 @@
                             class="links">Inscription</a></button>
                 <?php else: ?>
                     <!-- Profile menu (visible when logged in) -->
-                    <div class="profile-menu logged-in-only">
+                    <div class="profile-menu">
                         <img src="https://i.pravatar.cc/150?img=68" alt="Profile" class="profile-avatar" />
                         <div class="dropdown">
                             <div class="dropdown-item"><i class="fa-solid fa-user"></i> Mon profil</div>

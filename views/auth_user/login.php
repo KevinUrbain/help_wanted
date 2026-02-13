@@ -41,27 +41,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<?php require_once ROOT . '/views/templates/head.php'; ?>
 
-<body>
-    <form action="" method="POST">
-        <div class="">
-            <label for="email">Adresse Email :</label>
-            <input type="email" name="email" id="email" required autocomplete="email" placeholder="exemple@domaine.com">
+<body class="login-page">
+    <!-- Navigation -->
+    <?php require_once ROOT . '/views/templates/nav.php'; ?>
+
+    <!-- Main content -->
+    <main class="main-login">
+        <div class="login-container">
+            <!-- Header -->
+            <div class="login-header">
+                <h1>Bon retour !</h1>
+                <p>Connectez-vous pour rejoindre votre communauté</p>
+            </div>
+
+            <!-- Form card -->
+            <div class="form-card">
+                <!-- Error message (hidden by default) -->
+                <div class="error-message" id="errorMessage">
+                    Identifiants incorrects. Veuillez réessayer.
+                </div>
+
+                <form action="" method="POST" id="loginForm">
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">Adresse e-mail</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="votre@email.com"
+                            required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" class="form-input"
+                                placeholder="••••••••" required>
+                            <button type="button" class="password-toggle"></button>
+                        </div>
+                    </div>
+
+                    <!-- Forgot password -->
+                    <div class="form-checkbox-group">
+                        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn-submit">Se connecter</button>
+                </form>
+                <!-- Sign up link -->
+                <div class="signup-link">
+                    Pas encore de compte ? <a href="index.php?action=register">Créer un compte</a>
+                </div>
+            </div>
         </div>
-
-        <div class="">
-            <label for="password">Mot de passe :</label>
-            <input type="password" name="password" id="password" required autocomplete="current-password">
-        </div>
-
-        <button type="submit" name="btn_login">Se connecter</button>
-
-    </form>
+    </main>
 </body>
 
 </html>
