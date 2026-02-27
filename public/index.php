@@ -18,4 +18,7 @@ switch ($action) {
     case 'logout':
         require_once ROOT . '/views/auth_user/logout.php';
         break;
+    case 'profile';
+        require_once ROOT . '/views/auth_user/profile.php';
+        break;
 }

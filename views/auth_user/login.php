@@ -23,7 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':email' => $email
         ]);
         $user = $stmt->fetch();
-        if ($user) {
+        if (!$user) {
+            $errors['user'] = "Utilisateur introuvable";
+        }
+
+        if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user'] = [
                 'id' => $user['id'],
                 'username' => $user['pseudo'],
@@ -31,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
             header('Location: index.php?action=home');
             exit;
+        } else {
+            $errors['password'] = "Identifiants incorrects";
         }
-    } else {
-        echo 'utilisateur introuvable';
     }
 }
 ?>
@@ -58,19 +62,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Form card -->
             <div class="form-card">
-                <!-- Error message (hidden by default) -->
-                <div class="error-message" id="errorMessage">
-                    Identifiants incorrects. Veuillez réessayer.
-                </div>
+                <!-- Error message -->
+                <?php if (!empty($errors)): ?>
+                    <div class="error-message" id="errorMessage">
+                        <?php foreach ($errors as $error): ?>
+                            <?= $error . "<br>" ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
+
 
                 <form action="" method="POST" id="loginForm">
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email" class="form-label">Adresse e-mail</label>
                         <input type="email" id="email" name="email" class="form-input" placeholder="votre@email.com"
-                            required>
+                            value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" required>
                     </div>
-
                     <!-- Password -->
                     <div class="form-group">
                         <label for="password" class="form-label">Mot de passe</label>
@@ -80,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <button type="button" class="password-toggle"></button>
                         </div>
                     </div>
-
                     <!-- Forgot password -->
                     <div class="form-checkbox-group">
                         <a href="#" class="forgot-password">Mot de passe oublié ?</a>

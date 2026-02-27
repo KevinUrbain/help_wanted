@@ -92,49 +92,132 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help Wanted - Inscription</title>
-</head>
+<?php require_once ROOT . '/views/templates/head.php' ?>
 
-<body>
-    <form action="" method="POST">
-        <label for="firstname">Prénom</label>
-        <input type="text" name="firstname" id="firstname"><br>
+<body class="login-page">
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="help-wanted.html" class="logo">Help Wanted</a>
+        </div>
+    </nav>
 
-        <label for="lastname">Nom</label>
-        <input type="text" name="lastname" id="lastname"><br>
+    <!-- Main content -->
+    <main class="main-login">
+        <div class="login-container register-container">
+            <!-- Header -->
+            <div class="login-header">
+                <h1>Rejoignez-nous !</h1>
+                <p>Créez votre compte et participez à la solidarité de quartier</p>
+            </div>
 
-        <label for="username">Pseudo</label>
-        <input type="text" name="username" id="username"><br>
+            <!-- Form card -->
+            <div class="form-card">
+                <!-- Error message (hidden by default) -->
+                <div class="error-message" id="errorMessage">
+                    Veuillez remplir tous les champs obligatoires.
+                </div>
 
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email"><br>
+                <form id="registerForm">
+                    <div class="form-row">
+                        <!-- Prénom -->
+                        <div class="form-group">
+                            <label for="prenom" class="form-label">Prénom</label>
+                            <input type="text" id="prenom" name="prenom" class="form-input" placeholder="Jean" required>
+                        </div>
 
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password" id="password">
+                        <!-- Nom -->
+                        <div class="form-group">
+                            <label for="nom" class="form-label">Nom</label>
+                            <input type="text" id="nom" name="nom" class="form-input" placeholder="Dupont" required>
+                        </div>
 
-        <label for="street">Rue</label>
-        <input type="text" name="street" id="street"><br>
+                        <!-- Pseudo -->
+                        <div class="form-group full-width">
+                            <label for="pseudo" class="form-label">Pseudo</label>
+                            <input type="text" id="pseudo" name="pseudo" class="form-input" placeholder="jean.dupont"
+                                required>
+                        </div>
 
-        <label for="number_street">Numéro</label>
-        <input type="text" name="number_street" id="number_street"><br>
+                        <!-- Email -->
+                        <div class="form-group full-width">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input"
+                                placeholder="jean.dupont@example.com" required>
+                        </div>
 
-        <label for="city">Ville</label>
-        <input type="text" name="city" id="city"><br>
+                        <!-- Mot de passe -->
+                        <div class="form-group">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="password" name="password" class="form-input"
+                                    placeholder="••••••••" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                    👁️
+                                </button>
+                            </div>
+                        </div>
 
-        <label for="zip_code">Code Postal</label>
-        <input type="text" name="zip_code" id="zip_code"><br>
+                        <!-- Rue -->
+                        <div class="form-group">
+                            <label for="rue" class="form-label">Rue</label>
+                            <input type="text" id="rue" name="rue" class="form-input" placeholder="Rue de la Paix"
+                                required>
+                        </div>
 
-        <label for="phone_number">Numéro de téléphone</label>
-        <input type="text" name="phone_number" id="phone_number"><br>
+                        <!-- Numéro -->
+                        <div class="form-group">
+                            <label for="numero" class="form-label">Numéro</label>
+                            <input type="text" id="numero" name="numero" class="form-input" placeholder="42" required>
+                        </div>
 
-        <label for="profil">Votre profil</label>
-        <textarea name="profil" id="profil"></textarea>
+                        <!-- Ville -->
+                        <div class="form-group">
+                            <label for="ville" class="form-label">Ville</label>
+                            <input type="text" id="ville" name="ville" class="form-input" placeholder="Bruxelles"
+                                required>
+                        </div>
 
-        <button type="submit">S'inscrire</button>
-    </form>
+                        <!-- Code Postal -->
+                        <div class="form-group">
+                            <label for="codePostal" class="form-label">Code Postal</label>
+                            <input type="text" id="codePostal" name="codePostal" class="form-input" placeholder="1000"
+                                required>
+                        </div>
+
+                        <!-- Numéro de téléphone -->
+                        <div class="form-group full-width">
+                            <label for="telephone" class="form-label">Numéro de téléphone</label>
+                            <input type="tel" id="telephone" name="telephone" class="form-input"
+                                placeholder="+32 123 45 67 89" required>
+                        </div>
+
+                        <!-- Photo de profil -->
+                        <div class="form-group full-width">
+                            <label class="form-label">Votre profil</label>
+                            <div class="profile-upload">
+                                <img id="profilePreview" class="profile-preview" src="" alt="Preview">
+                                <div class="upload-icon">📷</div>
+                                <div class="upload-text">
+                                    <strong>Cliquez pour télécharger</strong> ou glissez une photo<br>
+                                    <small>PNG, JPG jusqu'à 5MB</small>
+                                </div>
+                                <input type="file" id="profileImageInput" name="profileImage" accept="image/*" ">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type=" submit" class="btn-submit" style="margin-top: 2rem;">S'inscrire</button>
+                </form>
+
+                <!-- Sign in link -->
+                <div class="signup-link">
+                    Vous avez déjà un compte ? <a href="login.html">Se connecter</a>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>
